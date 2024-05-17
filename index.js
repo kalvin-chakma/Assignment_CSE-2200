@@ -1,22 +1,56 @@
 // Function to handle checkbox state change
 function handleCheckboxChange(checkbox, taskDetails, label) {
   checkbox.addEventListener("change", function () {
-    // If checked, strike through the task details
     if (this.checked) {
       taskDetails.style.textDecoration = "line-through";
       label.textContent = "Complete";
     } else {
-      // If unchecked, remove the strikethrough
       taskDetails.style.textDecoration = "none";
       label.textContent = "Incomplete";
     }
   });
 }
 
-// Function to add todo data
-let todoSection = document.getElementById("todo-data");
+let todos = [];
+let saveButton = document.getElementById("save-todo");
+let inputBar = document.getElementById("input-bar");
+let todoList = document.getElementById("todo-data-list");
 
-function addTodo(todoData) {
+inputBar.addEventListener("keyup", function buttonStatus() {
+  let todoText = inputBar.value;
+  if (todoText.length === 0) {
+    if (!saveButton.classList.contains("disabled")) {
+      saveButton.classList.add("disabled");
+    }
+  } else {
+    saveButton.classList.remove("disabled");
+  }
+});
+
+saveButton.addEventListener("click", function getTextAddTodo() {
+  let todoText = inputBar.value;
+  if (todoText.length === 0) return;
+  todos.push(todoText);
+  addTodo(todoText, todos.length - 1);
+  inputBar.value = "";
+});
+
+function removeAllTodos() {
+  todoList.innerHTML = "";
+  todos = [];
+}
+
+function removeTodo(event) {
+  let deleteButtonPressed = event.target;
+  let indexToBeRemoved = Number(deleteButtonPressed.getAttribute("data-idx"));
+  todos.splice(indexToBeRemoved, 1);
+  renderTodos();
+}
+
+let deleteAllButton = document.getElementById("delete-all");
+deleteAllButton.onclick = removeAllTodos;
+
+function addTodo(todoData, index) {
   let rowdiv = document.createElement("div");
   let tasklist = document.createElement("div");
   let taskno = document.createElement("div");
@@ -30,19 +64,14 @@ function addTodo(todoData) {
   let checkbox = document.createElement("input");
   let label = document.createElement("label");
 
-  // Set attributes for checkbox
   checkbox.type = "checkbox";
-  checkbox.id = "checkbox"; // You might need to change this id dynamically if adding multiple todos
+  checkbox.id = `checkbox-${index}`;
   label.style.marginLeft = "5px";
 
-  // Append the checkbox and label to the checkbox container div
   checkboxContainer.appendChild(checkbox);
   checkboxContainer.appendChild(label);
-
-  // Append the checkbox container div to the main div
   taskStatus.appendChild(checkboxContainer);
 
-  // Adding the task classes
   rowdiv.classList.add("row");
   tasklist.classList.add(
     "task-list",
@@ -58,31 +87,33 @@ function addTodo(todoData) {
   editbtn.classList.add("btn", "btn-success");
   deletebtn.classList.add("btn", "btn-danger", "mt-2");
 
-  // Set content for elements
-  taskno.textContent = "1"; // Assuming a static value for task number
-  taskDetails.textContent = todoData; // Setting the todoData dynamically
-  label.textContent = "Incomplete"; // Initial label text
+  deletebtn.setAttribute("data-idx", index);
+  deletebtn.onclick = removeTodo;
 
-  // Set text for buttons
+  taskno.textContent = index + 1;
+  taskDetails.textContent = todoData;
+  label.textContent = "Incomplete";
+
   editbtn.textContent = "Edit";
   deletebtn.textContent = "Delete";
 
-  // Append elements to their respective containers
   taskActions.appendChild(editbtn);
   taskActions.appendChild(deletebtn);
-
   tasklist.appendChild(taskno);
   tasklist.appendChild(taskDetails);
   tasklist.appendChild(taskStatus);
   tasklist.appendChild(taskActions);
-
   rowdiv.appendChild(tasklist);
   rowdiv.appendChild(hr);
 
-  todoSection.appendChild(rowdiv);
+  todoList.appendChild(rowdiv);
 
-  // Call the function to handle checkbox change
   handleCheckboxChange(checkbox, taskDetails, label);
+}
+
+function renderTodos() {
+  todoList.innerHTML = "";
+  todos.forEach((todo, index) => addTodo(todo, index));
 }
 
 // Call the function to handle checkbox change for existing tasks
@@ -95,6 +126,3 @@ document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
     .querySelector(".todo-status label");
   handleCheckboxChange(checkbox, taskDetails, label);
 });
-
-// Example usage:
-addTodo("Task Description");
