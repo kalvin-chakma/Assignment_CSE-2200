@@ -1,0 +1,68 @@
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: inherit;
+}
+
+.container {
+    width: 60%;
+}
+
+.header-text {
+    margin-top: 3rem;
+}
+
+.input-section {
+    align-items: center;
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.todo-input {
+    margin: 0;
+    flex-basis: 60%;
+}
+
+.todo-data {
+    justify-content: center;
+}
+
+.task-list-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 2rem;
+}
+
+.todo-no {
+    flex-basis: 3%;
+}
+
+.todo-detail {
+    flex-basis: 55%;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+}
+
+.todo-status {
+    flex-basis: 15%;
+}
+
+.todo-actions{
+    padding: 5px;
+    flex-basis: 15%;
+}
+.todo-action{
+    
+    flex-basis: 15%;
+}
+.btn {
+    width: 6rem;
+}
