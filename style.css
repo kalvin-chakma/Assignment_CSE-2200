@@ -1,3 +1,4 @@
+
 html {
     box-sizing: border-box;
 }
@@ -65,4 +66,67 @@ html {
 }
 .btn {
     width: 6rem;
+}
+#delete-all{
+    width: 7rem;
+}
+/* Media query for mobile view */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; /* Reduce container width */
+    }
+
+    .header-text {
+        margin-top: 2rem; /* Reduce top margin */
+    }
+
+    .todo-input {
+        margin: 0;
+        flex-basis: 90%;
+    }
+    .input-section {
+        gap: 1rem; /* Reduce gap between elements */
+        align-items: center;
+        margin-top: 3rem;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .task-list-heading {
+        font-size: 1.2rem; /* Reduce font size */
+    }
+
+    .todo-no {
+        flex-basis: 10%; /* Adjust width for smaller screens */
+    }
+
+    .todo-detail {
+        flex-basis: 55%; /* Adjust width for smaller screens */ 
+        max-width: 30%;
+        overflow:hidden ;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        align-items: center;
+    }
+
+    .todo-status {
+        flex-basis: 30%; /* Adjust width for smaller screens */
+    }
+
+    .todo-actions,
+    .todo-action {
+        flex-basis: 15%; /* Adjust width for smaller screens */
+    }
+
+    .btn {
+        font-size: 10px;
+        width: 4rem; /* Reduce button width */
+    }
+    #delete-all{
+        width :5rem;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 0; /* Remove right margin */
+    }      
 }
