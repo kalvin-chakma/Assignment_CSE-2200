@@ -9,6 +9,21 @@ html {
     box-sizing: inherit;
 }
 
+.todo-app{
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background-image: url("images.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover
+}
+.container{
+    background: transparent;
+    border: rgba(255, 255, 255, 1);
+    border-radius: 0px;
+    backdrop-filter: blur(20px);
+  
+  }
 .container {
     width: 60%;
 }
